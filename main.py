@@ -16,7 +16,18 @@ data = yaml.safe_load(file)
 print(data.keys())
 
 # Prepare to write CSV data
-fields = ["Method","Endpoint","Responses","HasSuccessResponse","HasFailureResponse","HasServerFailResponse"]
+# NOTE : Only the first tag is selected
+fields = [
+    "tag",
+    "Method",
+    "Endpoint",
+    "summary",
+    "description",
+    "Responses",
+    "HasSuccessResponse",
+    "HasFailureResponse",
+    "HasServerFailResponse"
+    ]
 csvWriter = csv.writer(ofile)
 csvWriter.writerow(fields)
 
@@ -24,6 +35,9 @@ csvWriter.writerow(fields)
 for path in data["paths"]:
     # Iterate over each method in a path
     for method in data["paths"][path]:
+        summary = data["paths"][path][method]["summary"]
+        description = data["paths"][path][method]["description"]
+        tag = data["paths"][path][method]["tags"][0]
         # Get list of responses
         responses = list(data["paths"][path][method]["responses"].keys())
         hasSuccess, hasFailure , hasServerFailure = False,False,False
@@ -38,7 +52,17 @@ for path in data["paths"]:
                 hasServerFailure = True
         # Prepare and write the CSV row
         # Responses are separated by \t (tab). Don't use commas.
-        output = [method,path," \t ".join(responses),hasSuccess,hasFailure,hasServerFailure]
+        output = [
+            tag,
+            method,
+            path,
+            summary,
+            description,
+            " \t ".join(responses),
+            hasSuccess,
+            hasFailure,
+            hasServerFailure
+            ]
         csvWriter.writerow(output)
 
 # Close the files which we had opened earlier
