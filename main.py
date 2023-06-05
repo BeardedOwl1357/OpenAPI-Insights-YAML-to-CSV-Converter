@@ -25,22 +25,19 @@ csvWriter.writerow(fileConstants.fields)
 for path in data["paths"]:
     # Iterate over each method in a path
     for method in data["paths"][path]:
-        pathItem = data["paths"][path][method]
-        summary = pathItem["summary"]
-        description = pathItem["description"]
-        # Only first tag is used
-        tag = pathItem["tags"][0]
+        pathItem = data["paths"][path][method]        
         # Get list of responses
         responses = list(pathItem["responses"].keys())
         responseTypes = openapiOperations.getTypesOfResponses(responses)
         # Prepare and write the CSV row
         # Responses are separated by \t (tab). Don't use commas.
         output = [
-            tag,
+            # Only first tag is used
+            pathItem["tags"][0],
             method,
             path,
-            summary,
-            description,
+            pathItem["summary"],
+            pathItem["description"],
             " \t ".join(responses),
             responseTypes['2xx'],
             responseTypes['4xx'],
