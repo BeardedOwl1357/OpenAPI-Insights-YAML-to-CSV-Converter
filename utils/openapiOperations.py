@@ -1,3 +1,26 @@
+def isValidHttpResponse(response:str):
+    '''
+    A valid response is an HTTP response code of any form below
+        - 1xx
+        - 2xx
+        - 3xx
+        - 4xx
+        - 5xx
+    '''
+    validResponses = ['1','2','3','4','5']
+    isValid = False
+    for resp in validResponses:
+        if response[0] == resp:
+            isValid = True
+    return isValid
+
+def getResponses(pathItem):
+    responses = []
+    for response in pathItem["responses"]:
+        if isValidHttpResponse(response):
+            responses.append(response)
+    return responses
+
 def getTypesOfResponses(responses):
     # Iterate over each response and check the first "digit"
     # Each response is stored as a string, not a number so we can do this
@@ -9,11 +32,9 @@ def getTypesOfResponses(responses):
         "5xx" : False
     }
     for response in responses:
-        firstDigit = response[0]
-        if(int(firstDigit) < 1 or int(firstDigit) > 6):
-            continue
-        key = f"{firstDigit}xx"
-        responseTypes[key] = True
+        if(isValidHttpResponse(response)):
+            key = f"{response[0]}xx"
+            responseTypes[key] = True
     return responseTypes
 
 tags = {}
@@ -52,6 +73,7 @@ def printMarkdownHeader(
     for header in headers:
         header = str(header).ljust(paddingLength)
         startString += f'{header}|'
+
         sep += "".ljust(paddingLength,"-")+"|"
     print(startString)
     print(sep)

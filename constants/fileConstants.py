@@ -1,13 +1,13 @@
 import os
 # Input File
-fname = os.path.join(os.getcwd(),"openapi.yaml")
+INPUT_FNAME = os.path.join(os.getcwd(),"openapi.yaml")
 
 # Output File
-ofname = os.path.join(os.getcwd(),"output.csv")
+OUTPUT_FNAME = os.path.join(os.getcwd(),"output.csv")
 
-# CSV File Fields
+# CSV File CSV_FIELDS
 # NOTE : Only the first tag is selected
-fields = [
+CSV_FIELDS = [
     "tag",
     "Method",
     "Endpoint",
@@ -18,3 +18,4 @@ fields = [
     "HasFailureResponse",
     "HasServerFailResponse"
     ]
+NUM_CSV_FIELDS = len(CSV_FIELDS)
