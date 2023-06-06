@@ -10,9 +10,10 @@ def getTypesOfResponses(responses):
     }
     for response in responses:
         firstDigit = response[0]
-        if firstDigit > '0' and firstDigit < '0':
-            key = f"{firstDigit}xx"
-            responseTypes[key] = True
+        if(int(firstDigit) < 1 or int(firstDigit) > 6):
+            continue
+        key = f"{firstDigit}xx"
+        responseTypes[key] = True
     return responseTypes
 
 tags = {}

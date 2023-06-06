@@ -1,3 +1,4 @@
+#!/usr/local/bin/python3
 import yaml
 import csv
 import os
@@ -45,7 +46,7 @@ for path in data["paths"]:
             ]
         csvWriter.writerow(output)
         # Creating Report
-        openapiOperations.updateTagInfo(tag)
+        openapiOperations.updateTagInfo(pathItem["tags"][0])
 
 # Close the files which we had opened earlier
 file.close()

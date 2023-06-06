@@ -3,7 +3,7 @@ import os
 fname = os.path.join(os.getcwd(),"openapi.yaml")
 
 # Output File
-ofname = os.path.join(os.getcwd(),"main.csv")
+ofname = os.path.join(os.getcwd(),"output.csv")
 
 # CSV File Fields
 # NOTE : Only the first tag is selected
